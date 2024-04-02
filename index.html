@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+
+
+    <style>
+        body {
+        background-image: url('bg.jpg');
+        background-size: 1600px;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group span {
+            color: red;
+            font-size: 0.8em;
+            display: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1><i> <font size="+15">JOB APPLICATION FORM</font></i></h1>
+        <form id="job-form" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name"><b>Enter your name:</b></label>
+                <input type="text" id="name" name="name" required>
+                <span id="name-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="email"><b>Enter Email ID:</b></label>
+                <input type="email" id="email" name="email" required>
+                <span id="email-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone"><b>Enter Phone Number:</b></label>
+                <input type="tel" id="phone" name="phone">
+                <span id="phone-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="address"><b>Address for communication:</b></label>
+                <textarea id="address" name="address" rows="3"></textarea>
+                <span id="address-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="resume"><b>Resume (PDF only, maximum of 5MB):</b></label>
+                <input type="file" id="resume" name="resume" accept=".pdf">
+                <span id="resume-error"></span>
+            </div>
+            
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+    <script>
+function validateForm() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+  const address = document.getElementById('address').value;
+  const resume = document.getElementById('resume').files[0];
+  
+  let isValid = true;
+
+  // Clear any existing error messages
+  const errorSpans = document.querySelectorAll('.form-group span');
+  errorSpans.forEach(span => span.style.display = 'none');
+
+  // Name validation
+  if (!name.trim()) {
+    document.getElementById('name-error').textContent = 'Name is required';
+    document.getElementById('name-error').style.display = 'block';
+    isValid = false;
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById('email-error').textContent = 'Invalid email format';
+    document.getElementById('email-error').style.display = 'block';
+    isValid = false;
+  }
